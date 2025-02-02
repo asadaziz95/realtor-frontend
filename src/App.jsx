@@ -13,19 +13,14 @@ const App = () => {
   const onFinish = async (values) => {
     setLoading(true); // Show loader
     try {
-      // Send a POST request to your backend login endpoint
-      const response = await axios.post('http://localhost:4000/graphql', {
-        query: `
-         mutation {
-           login(email: "${values.username}", password: "${values.password}") {
-            token
-          } 
-    }
-        `,
+      // Send a POST request to your new backend login endpoint
+      const response = await axios.post('https://realtor-backend-kczm.onrender.com/api/users/login', {
+        email: values.username,
+        password: values.password,
       });
 
       // Extract the token from the response
-      const token = response.data.data.login.token;
+      const token = response.data.token;
 
       // Save the token to localStorage or sessionStorage
       localStorage.setItem('token', token);
@@ -35,10 +30,6 @@ const App = () => {
       console.log('Token:', token);
 
       navigate('/dashboard');
-
-
-      // Redirect to another page (e.g., dashboard)
-      // window.location.href = '/dashboard';
     } catch (error) {
       // Handle errors
       console.error('Login failed:', error);
