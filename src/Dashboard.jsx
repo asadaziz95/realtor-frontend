@@ -35,6 +35,7 @@ const Dashboard = () => {
     { title: 'Total Payment', dataIndex: 'totalPayment', key: 'totalPayment' },
     { title: 'Commission', dataIndex: 'commission', key: 'commission' },
     { title: 'Dealer Name', dataIndex: 'dealerName', key: 'dealerName' },
+    { title: 'Plot Number', dataIndex: 'plotNumber', key: 'plotNumber' },
     {
       title: 'Actions',
       key: 'actions',
@@ -169,6 +170,7 @@ const Dashboard = () => {
 
   // Handle form submission
   const onFinish = async (values) => {
+    console.log('values',values);
     if (editingCustomer) {
       await updateCustomer(values);
     } else {
@@ -188,6 +190,7 @@ const Dashboard = () => {
           totalPayment: values.totalPayment,
           commission: values.commission,
           dealerName: values.dealerName,
+          plotNumber: values.plotNumber,
         }, {
           headers: {
             'Authorization': `Bearer ${token}`
@@ -286,6 +289,14 @@ const Dashboard = () => {
             rules={[{ required: true }]}
           >
             <Input type="number" />
+          </Form.Item>
+
+          <Form.Item
+            name="plotNumber"
+            label="Plot Number"
+            rules={[{ required: true }]}
+          >
+            <Input type="text" />
           </Form.Item>
 
           <Form.Item
